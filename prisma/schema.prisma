@@ -13,4 +13,44 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Users{
+  username String @id @db.VarChar(100)
+  password String @db.VarChar(100)
+  name String @db.VarChar(100)
+  token String? @db.VarChar(100) 
 
+  contacts Contact[]
+
+  @@map("users")
+}
+
+
+model Contact{
+  id Int @id @default(autoincrement())
+  first_name String @db.VarChar(100)
+  last_name String @db.VarChar(100)
+  email String? @db.VarChar(100)
+  phone String? @db.VarChar(100)
+  username String @db.VarChar(100)
+
+  user Users @relation(fields: [username], references: [username])
+  addresses Addresses[]
+
+  @@map("contacts")
+}
+
+
+model Addresses{
+  id Int @id @default(autoincrement())
+  street String? @db.VarChar(255)
+  city String? @db.VarChar(255)
+  province String? @db.VarChar(255)
+  country String @db.VarChar(255)
+  postalCode String @db.VarChar(255)
+  contactId Int
+
+  contact Contact @relation(fields: [contactId],references: [id])
+
+
+
+}

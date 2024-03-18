@@ -20,6 +20,7 @@
 ### SETUP PRISMA
 ```
 1. npx prisma init
+2. npx prisma migrate dev // untuk migrate data
 ```
 
 
